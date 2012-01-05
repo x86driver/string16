@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <utils/String16.h>
+#include <ctype.h>
 
 using namespace android;
 
@@ -51,11 +52,15 @@ String16 load_file()
 int main()
 {
     String16 abc("Hello");
-    save_file(abc);
+    char buf[128];
 
-    String16 ret = load_file();
+    for (int i = 0; i < abc.size(); ++i) {
+        buf[i] = abc.string()[i];
+    }
 
-    printf("string size: %d\n", ret.size());
+    buf[abc.size()] = '\0';
+
+    printf("%s\n", buf);
 
     return 0;
 }
